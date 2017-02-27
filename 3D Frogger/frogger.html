@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Frogger</title>
+		<script id="vertex-shader" type="x-shader/x-vertex">
+			
+			attribute vec4 vPosition;
+			uniform mat4 projection;
+			uniform mat4 modelview;
+
+			void main() 
+			{
+				gl_Position = projection * modelview * vPosition;
+			} 
+			
+		</script>
+		
+		<script id="fragment-shader" type="x-shader/x-fragment">
+			
+			precision mediump float;
+			uniform vec4 fColor;
+
+			void main()
+			{
+				gl_FragColor = fColor;
+			}
+			
+		</script>
+		
+		<script id="vertex-shader2" type="x-shader/x-vertex">
+
+			attribute vec4 vPosition;
+			attribute vec2 vTexCoord;
+
+			varying vec2 fTexCoord;
+
+			uniform mat4 projection;
+			uniform mat4 modelview;
+
+			void main()
+			{
+				fTexCoord = vTexCoord;
+				gl_Position = projection * modelview * vPosition;
+			}
+			
+		</script>
+			
+		<script id="fragment-shader2" type="x-shader/x-fragment">
+		
+			precision mediump float;
+
+			varying vec2 fTexCoord;
+			uniform sampler2D texture;
+
+			void main()
+			{
+				gl_FragColor = texture2D( texture, fTexCoord );
+			}
+			
+		</script>
+		
+		<script type="text/javascript" src="./utils/webgl-utils.js"></script>
+		<script type="text/javascript" src="./utils/initShaders.js"></script>
+		<script type="text/javascript" src="./utils/MV.js"></script>
+		<script type="text/javascript" src="./gamecode/frogger.js"></script>
+		<script type="text/javascript" src="./gamecode/drawer.js"></script>
+		<script type="text/javascript" src="./gamecode/collider.js"></script>
+		<script type="text/javascript" src="./gamecode/mover.js"></script>
+		
+	</head>
+	<body>
+		<h2>3D Frogger</h2>
+		<h4>Eftir Gunnar Pálsson</h4>
+		<canvas id="gl-canvas" width="500" height="380">
+			Oops ... your browser doesn't support the HTML5 canvas element
+		</canvas>
+		<h4 id="Scoring">Score: 0</h4>
+		<h4 id="Lives">Lives: 3</h4>
+		<br></br>
+		<img id = "grassTexture" src = "./textures/grassTexture.png" hidden></img>
+		<img id = "roadTexture" src = "./textures/roadTexture.jpg" hidden></img>
+	</body>
+</html>
